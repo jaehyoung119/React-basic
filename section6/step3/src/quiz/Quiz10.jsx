@@ -7,6 +7,12 @@ function Quiz10() {
     rePw: "",
   });
 
+  const [error, setError] = useState({
+    name: "",
+    pw: "",
+    rePw: "",
+  });
+
   const onChange = (e) => {
     const { name, value } = e.target;
 
@@ -20,19 +26,21 @@ function Quiz10() {
 
   const onSubmit = () => {
     const { email, pw, rePw } = form;
+    const newError = {};
 
-    if (!email.trim() || !pw.trim() || !rePw.trim()) {
-      setError("모든 항목을 입력해주세요");
-      return;
+    if (!email.trim()) newError.email = "이메일을 입력해주세요";
+    if (!pw.trim()) newError.pw = "비밀번호를 입력해주세요";
+    if (!rePw.trim()) newError.rePw = "비밀번호 확인을 입력해주세요";
+    if (pw && rePw && pw !== rePw)
+      newError.rePw = "비밀번호가 일치하지 않습니다";
+
+    setError(newError);
+
+    if (Object.keys(newError).length === 0) {
+      alert("회원가입 완료!");
+      setForm({ email: "", pw: "", rePw: "" });
+      setError({ email: "", pw: "", rePw: "" });
     }
-
-    if (pw !== rePw) {
-      setError("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-
-    alert("제출 완료");
-    setForm({ email: "", pw: "", rePw: "" });
   };
 
   return (
