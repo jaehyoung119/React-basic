@@ -1,0 +1,15 @@
+/* index.css */
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.light {
+  background-color: white;
+  color: black;
+}
+
+.dark {
+  background-color: #111;
+  color: white;
+}
