@@ -1,4 +1,6 @@
-import { useMemo, useReducer, useState } from "react";
+import { useReducer, useMemo, useState } from "react";
+import InputForm from "./InputForm";
+import TodoList from "./TodoList";
 
 const initialTodos = [];
 
@@ -20,7 +22,7 @@ export default function App() {
   const [todos, dispatch] = useReducer(todoReducer, initialTodos);
 
   const handleAdd = () => {
-    if (!text.trim() === "") return;
+    if (!text.trim()) return;
     dispatch({
       type: "ADD",
       newTodo: {
@@ -33,14 +35,14 @@ export default function App() {
   };
 
   const doneCount = useMemo(() => {
-    return todos.map((todo) => todo.isDone).length;
+    return todos.filter((todo) => todo.isDone).length;
   }, [todos]);
 
   return (
     <>
       <InputForm text={text} setText={setText} onAdd={handleAdd} />
       <TodoList todos={todos} dispatch={dispatch} />
-      <p>안료된 항목수 : {doneCount} </p>
+      <p>✅ 완료된 항목 수: {doneCount}</p>
     </>
   );
 }
